@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { postNewCategoryAction } from "../category-reducers/categoryAction";
 
 const initialState = {
   status: "inactive",
@@ -6,6 +8,7 @@ const initialState = {
 };
 
 const CategoryForm = () => {
+  const dispatch = useDispatch();
   const [form, setForm] = useState(initialState);
 
   const handleOnChange = (e) => {
@@ -22,7 +25,10 @@ const CategoryForm = () => {
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
+
     console.log(form);
+
+    dispatch(postNewCategoryAction(form));
   };
 
   return (
@@ -51,11 +57,11 @@ const CategoryForm = () => {
             onChange={handleOnChange}
             className="w-4/12 max-sm:w-fit bg-gray-50 border border-gray-300 text-gray-900 text-sm max-sm:text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           >
-            <option selected>Select Parent Category</option>
-            <option value="US">United States</option>
-            <option value="CA">Canada</option>
-            <option value="FR">France</option>
-            <option value="DE">Germany</option>
+            <option defaultValue>Select Parent Category</option>
+            <option value="electronics">Electronics</option>
+            <option value="books">Books</option>
+            <option value="costume">Costume</option>
+            <option value="footwear">Footwear</option>
           </select>
           <input
             type="text"
