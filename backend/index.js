@@ -3,6 +3,7 @@ import express from "express";
 import cors from "cors";
 import helmet from "helmet";
 import connectDatabase from "./src/config/dbConfig.js";
+import categoryRouter from "./src/routers/categoryRouter.js";
 
 const app = express();
 app.use(cors());
@@ -12,6 +13,8 @@ app.use(express.json());
 const PORT = process.env.PORT || 8000;
 
 connectDatabase();
+
+app.use("/api/v1/category", categoryRouter);
 
 app.use("/", (req, res, next) => {
   res.json({
