@@ -9,4 +9,7 @@ export default defineConfig({
     globals: true,
     environment: "jsdom",
   },
+  env: {
+    REACT_APP_API_ENDPOINT: "https://fs-admin-cms-backend.vercel.app/",
+  },
 });

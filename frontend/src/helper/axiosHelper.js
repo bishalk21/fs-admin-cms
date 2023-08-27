@@ -6,7 +6,7 @@ const rootURL =
     ? "https://fs-admin-cms-backend.vercel.app/"
     : "https://fs-admin-cms-backend.vercel.app/";
 
-const categoryEndpoint = rootURL + "category";
+const categoryEndpoint = rootURL + "api/v1/category";
 
 const apiProcessor = async ({ method, url, data }) => {
   try {
