@@ -23,7 +23,6 @@
     "@babel/preset-env": "^7.22.10",
     "@testing-library/jest-dom": "^6.0.1",
     "@testing-library/react": "^14.0.0",
-    "@testing-library/react-hooks": "^8.0.1",
     "@testing-library/user-event": "^14.4.3",
     "@types/react": "^18.2.15",
     "@types/react-dom": "^18.2.7",
@@ -41,5 +40,8 @@
     "tailwindcss": "^3.3.3",
     "vite": "^4.4.5",
     "vitest": "^0.34.2"
-  }
+  },
+  "description": "This is the full stack e-commerce project. This is the frontend application.",
+  "author": "Bishal Karki",
+  "license": "ISC"
 }
