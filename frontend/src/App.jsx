@@ -1,22 +1,22 @@
-import AddNewProductForm from "./AddNewProductForm";
 import "./App.css";
-import CategoryTable from "./pages/category/components/CategoryTable";
-import CategoryForm from "./pages/category/components/CategoryForm";
+import ProductManagement from "./pages/product/ProductManagement";
+import CategoryManagement from "./pages/category/CategoryManagement";
 
 function App() {
   return (
-    <div className="h-screen max-w-4xl flex flex-col gap-4 items-start justify-center p-10">
-      <div className="category  w-full">
+    <div className="h-full max-w-full flex flex-col gap-4 items-center justify-center p-10">
+      <div className="category w-full">
         <h1 className="font-bold text-2xl text-blue-600">
           Category Management
         </h1>
-        <CategoryForm />
-        <CategoryTable />
+        <CategoryManagement />
       </div>
 
-      <div className="product">
+      <hr className="border w-full border-black" />
+
+      <div className="product w-full">
         <h1 className="font-bold text-2xl text-blue-600">Product Management</h1>
-        <AddNewProductForm />
+        <ProductManagement />
       </div>
     </div>
   );
