@@ -1,6 +1,9 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchCategoriesAction } from "../category-reducers/categoryAction";
+import {
+  deleteCategoryAction,
+  fetchCategoriesAction,
+} from "../category-reducers/categoryAction";
 
 const CategoryTable = () => {
   const dispatch = useDispatch();
@@ -9,6 +12,12 @@ const CategoryTable = () => {
   useEffect(() => {
     dispatch(fetchCategoriesAction());
   }, []);
+
+  const handleOnDelete = (_id) => {
+    if (window.confirm("Are you sure you want to delete this category?")) {
+      dispatch(deleteCategoryAction(_id));
+    }
+  };
 
   return (
     <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
@@ -76,13 +85,16 @@ const CategoryTable = () => {
               >
                 {item.name}
               </th>
-              <td className="px-6 py-4">
-                <a
-                  href="#"
-                  className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                >
+              <td className="px-6 py-4 flex gap-6 items-center">
+                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                   Edit
-                </a>
+                </button>
+                <button
+                  onClick={() => handleOnDelete(item._id)}
+                  class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                >
+                  Delete
+                </button>
               </td>
             </tr>
           ))}

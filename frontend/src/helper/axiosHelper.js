@@ -33,3 +33,11 @@ export const fetchCategories = () => {
   };
   return apiProcessor(option);
 };
+
+export const deleteCategory = (_id) => {
+  const option = {
+    method: "delete",
+    url: categoryEndpoint + "/" + _id,
+  };
+  return apiProcessor(option);
+};

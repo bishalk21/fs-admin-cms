@@ -11,7 +11,15 @@ const categorySchema = new mongoose.Schema(
       required: true,
       maxLength: 50,
     },
-    parentCategoryId: {
+    slug: {
+      type: String,
+      require: true,
+      maxLength: 50,
+      unique: true,
+      index: 1,
+      trim: true, // remove space before and after
+    },
+    parentCatId: {
       type: mongoose.Schema.Types.ObjectId,
       default: null,
     },
