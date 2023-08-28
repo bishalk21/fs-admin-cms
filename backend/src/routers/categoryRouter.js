@@ -4,18 +4,11 @@ import {
   deleteCategoryById,
   getCategories,
 } from "../model/category/categoryModel.js";
+import slugifyName from "../helpers/slugifier/slugifyName.js";
 const router = express.Router();
 
 router.post("/", async (req, res, next) => {
   try {
-    const slugifyName = (name) => {
-      return name
-        .toLowerCase() // Convert to lowercase
-        .replace(/\s+/g, "-") // Replace spaces with hyphens
-        .replace(/[^\w-]+/g, "") // Remove non-word characters
-        .substring(0, 50); // Limit to 50 characters
-    };
-
     req.body.slug = slugifyName(req.body.name);
 
     const result = await addCategory(req.body);

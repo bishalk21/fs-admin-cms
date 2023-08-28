@@ -7,8 +7,34 @@ Content-Type: application/json
 
 {
     "status": "success",
-    "name": "lamp"
+    "name": "Physics",
+    "parentCatId": "64ecf460612e85b66e267b3f"
 }
 
 ### get all categories
 GET http://localhost:8000/api/v1/category
+
+### delete category JUST PASS THE ID OF CATEGORY IN THE URL
+DELETE http://localhost:8000/api/v1/category/64ecf4bf612e85b66e267b46
+
+### add new product
+POST http://localhost:8000/api/v1/product
+Content-Type: application/json
+
+{
+    "name": "Astronomy",
+    "sku": "astronomy",
+    "description": "Astronomy",
+    "quantity": 1,
+    "price": 3000,
+    "salesPrice": 1200,
+    "salesStartDate": null,
+    "salesEndDate": null,
+    "parentCatId": "64ecf460612e85b66e267b3f"
+}
+
+### get all products
+GET http://localhost:8000/api/v1/product
+
+### get product by _id
+GET http://localhost:8000/api/v1/product/64ecfa65452e0cfb3ca9ed93

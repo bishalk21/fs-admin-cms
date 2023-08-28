@@ -1,10 +1,10 @@
 import axios from "axios";
 
-// const rootUrl = "http://localhost:8000/api/v1/";
-const rootURL =
-  process.env.NODE_ENV === "production"
-    ? "https://fs-admin-cms-backend.vercel.app/"
-    : "https://fs-admin-cms-backend.vercel.app/";
+const rootURL = "http://localhost:8000/";
+// const rootURL =
+//   process.env.NODE_ENV === "production"
+//     ? "https://fs-admin-cms-backend.vercel.app/"
+//     : "https://fs-admin-cms-backend.vercel.app/";
 
 const categoryEndpoint = rootURL + "api/v1/category";
 

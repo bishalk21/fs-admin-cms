@@ -4,6 +4,7 @@ import cors from "cors";
 import helmet from "helmet";
 import connectDatabase from "./src/config/dbConfig.js";
 import categoryRouter from "./src/routers/categoryRouter.js";
+import productRouter from "./src/routers/productRouter.js";
 
 const app = express();
 app.use(cors());
@@ -15,6 +16,7 @@ const PORT = process.env.PORT || 8000;
 connectDatabase();
 
 app.use("/api/v1/category", categoryRouter);
+app.use("/api/v1/product", productRouter);
 
 app.use("/", (req, res, next) => {
   res.json({
