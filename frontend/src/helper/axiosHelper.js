@@ -7,6 +7,7 @@ const rootURL = "http://localhost:8000/";
 //     : "https://fs-admin-cms-backend.vercel.app/";
 
 const categoryEndpoint = rootURL + "api/v1/category";
+const productEndpoint = rootURL + "api/v1/product";
 
 const apiProcessor = async ({ method, url, data }) => {
   try {
@@ -42,6 +43,16 @@ export const deleteCategory = (_id) => {
   const option = {
     method: "delete",
     url: categoryEndpoint + "/" + _id,
+  };
+  return apiProcessor(option);
+};
+
+// products api ep
+export const postNewProduct = (data) => {
+  const option = {
+    method: "post",
+    url: productEndpoint,
+    data,
   };
   return apiProcessor(option);
 };

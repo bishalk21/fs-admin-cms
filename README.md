@@ -1,8 +1,25 @@
 # About Project
 
-- Frontend:  "./frontend/README.md"
-
 This is the full stack e-commerce project, combines React, Node, Express, MongoDB, and AWS to create a robust and user-friendly full-stack e-commerce solution.
+
+## Npm packages
+
+- express
+- body-parser
+- mongoose
+- cors
+- helmet
+- dotenv
+
+
+## APIs
+
+All the api end points will follow the following pattern
+
+    `{rootUrl}/api/v1/<resource>`
+
+`<resource>` - products, categories, ...
+
 
 Features: 
 
@@ -15,3 +32,4 @@ Features:
 4. Responsive Client Store: Designing a user-centric, responsive frontend client store. Ensuring smooth shopping experiences across devices for all users.
 
 5.  Streamlined Payments: Integration of the Stripe payment gateway for streamlined payment processing during checkout. Elevating convenience and security for users.
+

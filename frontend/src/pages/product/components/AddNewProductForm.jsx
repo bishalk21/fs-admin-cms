@@ -1,6 +1,7 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import CustomInputField from "../../../components/custom-input-field/CustomInputField";
 import { useState } from "react";
+import { postNewProductAction } from "../product-reducers/productAction";
 
 const initialState = {
   status: "inactive",
@@ -18,6 +19,14 @@ const initialState = {
 const AddNewProductForm = () => {
   const [form, setForm] = useState(initialState);
   const categories = useSelector((state) => state.category.categories);
+  const [images, setImages] = useState([]);
+  const dispatch = useDispatch();
+
+  const handleOnImageSelect = (e) => {
+    const { files } = e.target;
+    // console.log(files);
+    setImages(files);
+  };
 
   const inputFields = [
     {
@@ -99,6 +108,8 @@ const AddNewProductForm = () => {
       value = checked ? "active" : "inactive";
     }
 
+    console.log(name, value);
+
     setForm({ ...form, [name]: value });
   };
 
@@ -110,6 +121,12 @@ const AddNewProductForm = () => {
     for (const key in form) {
       formData.append(key, form[key]);
     }
+
+    // append images
+    images.length &&
+      [...images].map((image) => formData.append("images", image));
+
+    dispatch(postNewProductAction(formData));
   };
 
   return (
@@ -117,13 +134,14 @@ const AddNewProductForm = () => {
       <h1 className="font-bold text-lg">Add New Product</h1>
 
       <form
+        enctype="multipart/form-data"
         onSubmit={handleOnSubmit}
         className="flex items-center flex-row flex-wrap justify-between max-sm:items-center gap-4 p-2.5 w-full"
       >
         <label className="relative inline-flex items-center cursor-pointer">
           <input
             type="checkbox"
-            value=""
+            checked={form.status === "active"}
             className="sr-only peer"
             name="status"
             label="status"
@@ -133,21 +151,30 @@ const AddNewProductForm = () => {
         </label>
 
         <select
-          name="parentCategory"
+          name="parentCatId"
           onChange={handleOnChange}
           className="max-sm:w-fit bg-gray-50 border border-gray-300 text-gray-900 text-sm max-sm:text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
         >
-          <option defaultValue>Assign to Category</option>
+          <option value="">Assign to Category</option>
           {categories.length > 0 &&
-            categories.map((item) => (
-              <option key={item._id} value={item.name}>
-                {item.name}
-              </option>
-            ))}
+            categories.map(
+              (item) =>
+                item.parentCatId && (
+                  <option key={item._id} value={item._id}>
+                    {item.name}
+                  </option>
+                )
+            )}
         </select>
 
         {inputFields.map((item, i) => (
-          <CustomInputField key={i} {...item} onChange={handleOnChange} />
+          <CustomInputField
+            key={i}
+            {...item}
+            onChange={
+              item.name === "images" ? handleOnImageSelect : handleOnChange
+            }
+          />
         ))}
 
         <button

@@ -1,8 +1,8 @@
 import productSchema from "./productSchema.js";
 
 // add new product
-export const addNewProduct = (product) => {
-  return productSchema(product).save();
+export const addNewProduct = (obj) => {
+  return productSchema(obj).save();
 };
 
 // read all the products

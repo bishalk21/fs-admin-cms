@@ -86,12 +86,12 @@ const CategoryTable = () => {
                 {item.name}
               </th>
               <td className="px-6 py-4 flex gap-6 items-center">
-                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                   Edit
                 </button>
                 <button
                   onClick={() => handleOnDelete(item._id)}
-                  class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                  className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
                 >
                   Delete
                 </button>
