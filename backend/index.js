@@ -5,6 +5,7 @@ import helmet from "helmet";
 import connectDatabase from "./src/config/dbConfig.js";
 import categoryRouter from "./src/routers/categoryRouter.js";
 import productRouter from "./src/routers/productRouter.js";
+import adminUserRouter from "./src/routers/adminUserRouter.js";
 
 const app = express();
 app.use(cors());
@@ -17,6 +18,7 @@ connectDatabase();
 
 app.use("/api/v1/category", categoryRouter);
 app.use("/api/v1/product", productRouter);
+app.use("/api/v1/admin-user", adminUserRouter);
 
 app.use("/", (req, res, next) => {
   res.json({
