@@ -27,7 +27,10 @@ class ClientPage extends Component {
           {clients.map((client) => (
             <li key={client.id}>
               {client.name} - Payment Status: {client.paymentStatus}
-              <button onClick={() => this.handlePaymentUpdate(client.id)}>
+              <button
+                onClick={() => this.handlePaymentUpdate(client.id)}
+                className=""
+              >
                 Mark as Paid
               </button>
             </li>

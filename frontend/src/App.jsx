@@ -6,10 +6,13 @@ import AdminRegistration from "./pages/admin-registeration/AdminRegistration";
 import Body from "./pages/body/Body";
 import VerifyAdminUserPage from "./pages/admin-registeration/VerifyAdminUserPage";
 import ClientPage from "./components/class-based/client-page/ClientPage";
+import SideMenu from "./components/side-menu/SideMenu";
 
 const AppLayout = () => {
   return (
     <>
+      <SideMenu />
+
       <Header />
       <h1 className="font-bold text-center w-full p-4">
         Currently working in this project
