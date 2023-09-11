@@ -1,0 +1,22 @@
+{
+  "clients": [
+    {
+      "id": 1,
+      "name": "Client 1",
+      "email": "client1@example.com",
+      "paymentStatus": "unpaid"
+    },
+    {
+      "id": 2,
+      "name": "Client 2",
+      "email": "client2@example.com",
+      "paymentStatus": "unpaid"
+    },
+    {
+      "id": 3,
+      "name": "Client 3",
+      "email": "client3@example.com",
+      "paymentStatus": "unpaid"
+    }
+  ]
+}

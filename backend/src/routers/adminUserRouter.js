@@ -5,8 +5,21 @@ import {
   addNewAdminUser,
   updateAdminUser,
 } from "../model/admin-user/adminUserModel.js";
-import { verificationEmail } from "../helpers/email-helper/emailHelper.js";
+import {
+  userVerifiedNotification,
+  verificationEmail,
+} from "../helpers/email-helper/emailHelper.js";
 const router = express.Router();
+
+{
+  /**
+   * 1. user requested to be new user, make post call with details
+   * 2. generate emailValidate code for user and store in db along with other details
+   * 3. hash password
+   * 4. send verification link to the client with emailValidate code and client email in url
+   * 5. on click of that email, client status is active and validation code is cleared
+   */
+}
 
 router.post("/", async (req, res, next) => {
   try {

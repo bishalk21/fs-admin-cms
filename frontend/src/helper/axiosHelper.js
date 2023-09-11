@@ -1,13 +1,14 @@
 import axios from "axios";
 
-// const rootURL = "http://localhost:8000/";
-const rootURL =
-  process.env.NODE_ENV === "production"
-    ? "https://fs-admin-cms-backend.vercel.app/"
-    : "https://fs-admin-cms-backend.vercel.app/";
+const rootURL = "http://localhost:8000/";
+// const rootURL =
+//   process.env.NODE_ENV === "production"
+//     ? "https://fs-admin-cms-backend.vercel.app/"
+//     : "https://fs-admin-cms-backend.vercel.app/";
 
 const categoryEndpoint = rootURL + "api/v1/category";
 const productEndpoint = rootURL + "api/v1/product";
+const adminUserEndpoint = rootURL + "api/v1/admin-user";
 
 const apiProcessor = async ({ method, url, data }) => {
   try {
@@ -52,6 +53,26 @@ export const postNewProduct = (data) => {
   const option = {
     method: "post",
     url: productEndpoint,
+    data,
+  };
+  return apiProcessor(option);
+};
+
+// admin user api
+export const postNewAdminUser = (data) => {
+  const option = {
+    method: "post",
+    url: adminUserEndpoint,
+    data,
+  };
+  return apiProcessor(option);
+};
+
+// verify admin api
+export const verifyNewAdminUser = (data) => {
+  const option = {
+    method: "patch",
+    url: adminUserEndpoint + "/verify-email",
     data,
   };
   return apiProcessor(option);
