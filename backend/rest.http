@@ -40,6 +40,9 @@ GET http://localhost:8000/api/v1/product
 GET http://localhost:8000/api/v1/product/64ecfa65452e0cfb3ca9ed93
 
 # ========= ADMIN API
+### get all users
+GET  http://localhost:8000/api/v1/admin-user
+
 ### post new user
 POST http://localhost:8000/api/v1/admin-user
 Content-Type: application/json
@@ -53,3 +56,7 @@ Content-Type: application/json
     "phone": "1234456",
     "dob": "2000-04-29"
 }
+
+### verify new user
+PATCH http://localhost:8000/api/v1/admin-user/verify-user
+Content

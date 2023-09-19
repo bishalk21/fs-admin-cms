@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from "uuid";
 import { hashPassword } from "../helpers/bcrypt-helper/bcryptHelper.js";
 import {
   addNewAdminUser,
+  getAllAdminUsers,
   updateAdminUser,
 } from "../model/admin-user/adminUserModel.js";
 import {
@@ -68,6 +69,14 @@ router.post("/", async (req, res, next) => {
       error.message =
         "There is already another user exist in this email, either reset password or use different email";
     }
+    next(error);
+  }
+});
+
+router.get("/", async (req, res, next) => {
+  try {
+    const result = await getAllAdminUsers(req.body);
+  } catch (error) {
     next(error);
   }
 });

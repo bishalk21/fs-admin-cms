@@ -109,7 +109,7 @@ const AdminRegistration = () => {
         </div>
       )}
       <form
-        className="flex flex-col p-2.5 gap-2 w-full"
+        className="flex flex-col p-2.5 gap-2 w-2/4 shadow-md"
         // onSubmit={handleOnSubmit}
       >
         <div className="flex justify-between flex-wrap items-center max-sm:flex-col max-sm:w-full max-sm:items-center gap-6 p-2.5 pb-4 w-full">
@@ -125,16 +125,17 @@ const AdminRegistration = () => {
         >
           Submit
         </button>
+
+        <p className="text-end w-full pr-4">
+          Already have an account?{" "}
+          <Link
+            className="underline text-blue-600 font-bold text-base"
+            to="/admin-login"
+          >
+            Admin Login
+          </Link>
+        </p>
       </form>
-      <p className="text-end w-full pr-4">
-        Already have an account?{" "}
-        <Link
-          className="underline text-blue-600 font-bold text-base"
-          to="/admin-login"
-        >
-          Admin Login
-        </Link>
-      </p>
     </div>
   );
 };
