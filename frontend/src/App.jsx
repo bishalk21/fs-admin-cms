@@ -7,6 +7,7 @@ import Body from "./pages/body/Body";
 import VerifyAdminUserPage from "./pages/admin-registeration/VerifyAdminUserPage";
 import ClientPage from "./components/class-based/client-page/ClientPage";
 import SideMenu from "./components/side-menu/SideMenu";
+import AdminLogin from "./pages/admin-login/AdminLogin";
 
 const AppLayout = () => {
   return (
@@ -29,7 +30,15 @@ const AppRouter = createBrowserRouter([
     children: [
       {
         path: "/",
+        element: <AdminLogin />,
+      },
+      {
+        path: "/dashboard",
         element: <Body />,
+      },
+      {
+        path: "/admin-login",
+        element: <AdminLogin />,
       },
       {
         path: "admin-register",

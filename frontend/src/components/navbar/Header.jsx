@@ -17,7 +17,7 @@ const Header = () => {
         <Link to="/">Admin CMS</Link>
       </div>
       <div className="flex flex-row justify-between items-center gap-4">
-        <Link to="/admin-register">
+        <Link to="/admin-login">
           <i className="fa-solid fa-arrow-right-to-bracket"></i> Login
         </Link>
         <Link to="/admin-register">
