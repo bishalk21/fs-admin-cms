@@ -2,10 +2,10 @@ import "dotenv/config";
 import express from "express";
 import cors from "cors";
 import helmet from "helmet";
-import connectDatabase from "./src/config/dbConfig.js";
-import categoryRouter from "./src/routers/categoryRouter.js";
-import productRouter from "./src/routers/productRouter.js";
-import adminUserRouter from "./src/routers/adminUserRouter.js";
+import connectDatabase from "../src/config/dbConfig.js";
+import categoryRouter from "../src/routers/categoryRouter.js";
+import productRouter from "../src/routers/productRouter.js";
+import adminUserRouter from "../src/routers/adminUserRouter.js";
 
 const app = express();
 app.use(cors());
