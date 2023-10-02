@@ -14,7 +14,7 @@ const AdminRegistration = () => {
 
   const handleOnSubmit = async (e) => {
     e.preventDefault();
-    console.log(form);
+    // console.log(form);
 
     const { confirmPassword, ...rest } = form;
 

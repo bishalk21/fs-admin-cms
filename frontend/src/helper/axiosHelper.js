@@ -77,3 +77,34 @@ export const verifyNewAdminUser = (data) => {
   };
   return apiProcessor(option);
 };
+
+// login admin user
+export const loginAdminUser = (data) => {
+  const option = {
+    method: "post",
+    url: adminUserEndpoint + "/login",
+    data,
+  };
+  return apiProcessor(option);
+};
+
+// get admin user
+export const getAdminUser = (data) => {
+  const option = {
+    method: "get",
+    url: adminUserEndpoint,
+    data,
+    isPrivate: true,
+  };
+  return apiProcessor(option);
+};
+
+// get All admin user
+export const getAllAdminUser = () => {
+  const option = {
+    method: "get",
+    url: adminUserEndpoint + "/all-admin",
+    isPrivate: true,
+  };
+  return apiProcessor(option);
+};
