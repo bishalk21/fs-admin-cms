@@ -42,3 +42,21 @@ export const getAllAdminUserAction = () => async (dispatch) => {
 
   status === "success" && dispatch(setAllAdminUser(users));
 };
+
+// AUTO-LOGIN
+export const autoLogin = () => async (dispatch) => {
+  const accessJWT = sessionStorage.getItem("accessJWT");
+  const refreshJWT = localStorage.getItem("refreshJWT");
+  // 1. check if accessJWT exist, fetch user and mount user in our redux store
+  if (accessJWT) {
+    dispatch(getAdminUserAction());
+  }
+  // 2. if refreshJWT exist, fetch new accessJWT and fetch user using the newly fetch accessJWT
+  else if (refreshJWT) {
+    const token = await fetchNewAccessJWT();
+
+    token ? dispatch(getAdminUserAction(token)) : dispatch(logoutUserAction());
+  } else {
+    dispatch(logoutUserAction());
+  }
+};

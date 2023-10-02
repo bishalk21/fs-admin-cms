@@ -18,7 +18,11 @@ import {
   emailVerificationValidation,
   newAdminUserValidation,
 } from "../validation/joi-validation/AdminUserValidation.js";
-import { createJWTs } from "../helpers/jwt-helper/jwtHelper.js";
+import {
+  createJWTs,
+  signAccessJWT,
+  verifyRefreshJWT,
+} from "../helpers/jwt-helper/jwtHelper.js";
 const router = express.Router();
 
 // fetch user
@@ -48,6 +52,7 @@ router.get("/", (req, res, next) => {
    */
 }
 
+// new admin user register
 router.post("/", newAdminUserValidation, async (req, res, next) => {
   try {
     {
@@ -100,6 +105,7 @@ router.post("/", newAdminUserValidation, async (req, res, next) => {
   }
 });
 
+// all admin users
 router.get("/", async (req, res, next) => {
   try {
     const result = await getAllAdminUsers(req.body);
@@ -108,6 +114,7 @@ router.get("/", async (req, res, next) => {
   }
 });
 
+// verify new admin user
 router.patch(
   "/verify-email",
   emailVerificationValidation,
@@ -180,6 +187,42 @@ router.post("/login", async (req, res, next) => {
       message: "Invalid email or password",
     });
   } catch (error) {
+    next(error);
+  }
+});
+
+// generate new accessJWT and send back to client
+router.get("/accessjwt", async (req, res, next) => {
+  try {
+    const { authorization } = req.headers;
+    // console.log(authorization);
+
+    if (authorization) {
+      // 1. verify the token
+      const decoded = await verifyRefreshJWT(authorization);
+      //   console.log(decoded);÷frodf
+
+      // 2. check if exist in db
+      if (decoded.email) {
+        const user = await findOneUser({ email: decoded.email });
+        // 3. create new accessJWT and return
+        if (user?._id) {
+          //   const accessJWT = await signAccessJWT({ email: decoded.email });
+          return res.json({
+            status: "success",
+            message: "Access token generated",
+            accessJWT: await signAccessJWT({ email: decoded.email }),
+          });
+        }
+      }
+    }
+
+    res.status(401).json({
+      status: "error",
+      message: "Unauthenticated",
+    });
+  } catch (error) {
+    error.status = 401;
     next(error);
   }
 });

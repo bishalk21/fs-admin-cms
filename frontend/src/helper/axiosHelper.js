@@ -1,25 +1,63 @@
 import axios from "axios";
 
-const rootURL = "http://localhost:8000/";
-// const rootURL =
-//   process.env.NODE_ENV === "production"
-//     ? "https://fs-admin-cms-backend.vercel.app/"
-//     : "https://fs-admin-cms-backend.vercel.app/";
+// const rootURL = "http://localhost:8000/";
+const rootURL =
+  process.env.NODE_ENV === "production"
+    ? "https://fs-admin-cms-backend.vercel.app/"
+    : "https://fs-admin-cms-backend.vercel.app/";
 
 const categoryEndpoint = rootURL + "api/v1/category";
 const productEndpoint = rootURL + "api/v1/product";
 const adminUserEndpoint = rootURL + "api/v1/admin-user";
 
-const apiProcessor = async ({ method, url, data }) => {
+const apiProcessor = async ({ method, url, data, isPrivate }) => {
   try {
+    // if isPrivate is true then add token to the header
+    const headers = isPrivate
+      ? { Authorization: token || sessionStorage.getItem("accessJWT") }
+      : null;
+
     const response = await axios({
       method,
       url,
       data,
+      headers,
     });
     return response.data;
   } catch (error) {
-    console.log(error);
+    // console.log(error);
+    let message = error.message;
+    // if error is 401 then fetch new accessJWT
+    if (error.response && error.response?.status === 401) {
+      sessionStorage.removeItem("accessJWT");
+      localStorage.removeItem("refreshJWT");
+    }
+
+    // if error.response.data
+    if (error.response && error.response.data) {
+      message = error.response.data.message;
+    }
+
+    // if jwt expired
+    if (message === "jwt expired") {
+      // call the api to get new access jwt and store in session and call the api processor
+      const accessJWT = await fetchNewAccessJWT();
+
+      if (accessJWT) {
+        return await apiProcessor({
+          method,
+          url,
+          data,
+          isPrivate,
+          token: accessJWT,
+        });
+      }
+    }
+
+    return {
+      status: "error",
+      message,
+    };
   }
 };
 
@@ -107,4 +145,18 @@ export const getAllAdminUser = () => {
     isPrivate: true,
   };
   return apiProcessor(option);
+};
+
+// fetch new accessjwt
+export const fetchNewAccessJWT = async () => {
+  const option = {
+    method: "get",
+    url: adminUserEndpoint + "/accessjwt",
+    isPrivate: true,
+    token: localStorage.getItem("refreshJWT"),
+  };
+  const { status, accessJWT } = await apiProcessor(option);
+
+  status === "success" && sessionStorage.setItem("accessJWT", accessJWT);
+  return accessJWT;
 };

@@ -18,7 +18,7 @@ const adminUserSchema = new mongoose.Schema(
       required: [true, "Please enter your email address"],
       unique: true,
       index: 1,
-      maxLength: [20, "Email Address can't be more than 20 characters"],
+      maxLength: [40, "Email Address can't be more than 20 characters"],
     },
     password: {
       type: String,

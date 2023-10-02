@@ -35,30 +35,30 @@ const VerifyAdminUserPage = () => {
   }
 
   useEffect(() => {
-    if (queryParams.get("c") && queryParams.get("e")) {
-      const obj = {
-        emailValidateCode: queryParams.get("c"),
-        email: queryParams.get("e"),
-      };
+    // if (queryParams.get("c") && queryParams.get("e")) {
+    const obj = {
+      emailValidateCode: queryParams.get("c"),
+      email: queryParams.get("e"),
+    };
 
-      // 3. create an axios function or api ep to call the server
-      // 4. check if the combination of the email and code exist in th user table, if so activate the user and send the email notifications
+    // 3. create an axios function or api ep to call the server
+    // 4. check if the combination of the email and code exist in th user table, if so activate the user and send the email notifications
 
-      // Using Async/Await
-      // const verifyAdminUserfunc = async () => {
-      //    const result = await verifyAdminUser(obj)
-      //       setResponse(result)
-      // }
-      // verifyAdminUserfunc(obj)
+    // Using Async/Await
+    // const verifyAdminUserfunc = async () => {
+    //    const result = await verifyAdminUser(obj)
+    //       setResponse(result)
+    // }
+    // verifyAdminUserfunc(obj)
 
-      // Using IIFE - Immediately Invoke Function Why IIFE?
-      (async () => {
-        const result = await verifyNewAdminUser(obj);
-        console.log(result);
-        setResponse(result);
-        setIsPending(false);
-      })();
-    }
+    // Using IIFE - Immediately Invoke Function Why IIFE?
+    (async () => {
+      const result = await verifyNewAdminUser(obj);
+      // console.log(result);
+      setResponse(result);
+      setIsPending(false);
+    })();
+    // }
   }, [queryParams]);
 
   return (
@@ -93,7 +93,6 @@ const VerifyAdminUserPage = () => {
               ? "p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400"
               : "p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
           }`}
-          role="alert"
         >
           {response.message}
         </div>

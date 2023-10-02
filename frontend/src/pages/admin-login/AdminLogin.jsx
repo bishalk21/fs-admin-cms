@@ -1,14 +1,28 @@
-import { useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import CustomInputField from "../../components/custom-input-field/CustomInputField";
-import { Link } from "react-router-dom";
-import { loginAdminUserAction } from "./admin-reducer-action/adminUserAction";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import {
+  autoLogin,
+  loginAdminUserAction,
+} from "./admin-reducer-action/adminUserAction";
 
 const AdminLogin = () => {
   const [form, setForm] = useState({});
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const { adminUsers } = useSelector((state) => state.adminUsers);
+
+  // redirect to dashboard if admin user logs in
+  const origin =
+    (location.state && location.state.from && location.state.pathname) ||
+    "/dashboard";
+
+  useEffect(() => {
+    adminUsers?._id ? navigate(origin) : dispatch(autoLogin());
+  }, [navigate, dispatch, origin, adminUsers?._id]);
 
   const handleOnChange = (e) => {
     const { name, value } = e.target;
