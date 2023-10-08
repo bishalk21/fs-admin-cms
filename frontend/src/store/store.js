@@ -5,8 +5,17 @@ import {
   userLoginReducer,
   userRegisterReducer,
 } from "./reducers-actions/users/userReducer";
+import {
+  allBrandsReducer,
+  allCategoriesReducer,
+  allProductsReducer,
+  deleteProductReducer,
+  newProductReducer,
+  updateProductReducer,
+} from "./reducers-actions/products/productSlice";
+import { orderReducer } from "./reducers-actions/orders/orderSlice";
 
-const preloadedState = {
+let initialState = {
   userLogin: {
     userInfo: sessionStorage.getItem("userInfo")
       ? JSON.parse(sessionStorage.getItem("userInfo"))
@@ -19,57 +28,16 @@ const store = configureStore({
     users: allUsersReducer,
     userLogin: userLoginReducer,
     userRegister: userRegisterReducer,
+    orders: orderReducer,
+    newProduct: newProductReducer,
+    allProducts: allProductsReducer,
+    updateProduct: updateProductReducer,
+    deleteProduct: deleteProductReducer,
+    allBrands: allBrandsReducer,
+    allCategories: allCategoriesReducer,
   },
-  middleware: [thunk],
-  preloadedState,
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(thunk),
+  preloadedState: initialState,
 });
 
 export default store;
-
-// import { configureStore } from "@reduxjs/toolkit";
-// import { composeWithDevTools } from "redux-devtools-extension";
-// import thunk from "redux-thunk";
-// import {
-//   userLoginReducer,
-//   userRegisterReducer,
-//   allUsersReducer,
-// } from "./reducers/userReducer";
-// import { orderReducer } from "./reducers/orderReducer";
-// import {
-//   newProductReducer,
-//   allProductsReducer,
-//   updateProductReducer,
-//   deleteProductReducer,
-//   allBrandsReducer,
-//   allCategoriesReducer,
-// } from "./reducers/productReducer";
-
-// const reducer = {
-//   users: allUsersReducer,
-//   userLogin: userLoginReducer,
-//   userRegister: userRegisterReducer,
-//   orders: orderReducer,
-//   newProduct: newProductReducer,
-//   allProducts: allProductsReducer,
-//   updateProduct: updateProductReducer,
-//   deleteProduct: deleteProductReducer,
-//   allBrands: allBrandsReducer,
-//   allCategories: allCategoriesReducer,
-// };
-
-// let initialState = {
-//   userLogin: {
-//     userInfo: sessionStorage.getItem("userInfo")
-//       ? JSON.parse(sessionStorage.getItem("userInfo"))
-//       : null,
-//   },
-// };
-
-// const store = configureStore({
-//   reducer: reducer,
-//   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(thunk),
-//   devTools: process.env.NODE_ENV !== 'production',
-//   preloadedState: initialState
-// });
-
-// export default store;

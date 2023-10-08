@@ -1,15 +1,18 @@
 import React, { useEffect } from "react";
 // eslint-disable-next-line no-unused-vars
 import Chart from "chart.js/auto";
-import {
-  getAllProducts,
-  getAllCategories,
-} from "../store/actions/productAction";
 import { useSelector, useDispatch } from "react-redux";
-import { getAllOrders } from "../store/actions/orderAction";
-import { getAllUsers, clearErrors } from "../store/actions/userActions";
 import { Bar, Doughnut, Line, Pie } from "react-chartjs-2";
 import MainLayout from "../layout/main-layout/MainLayout";
+import {
+  getAllCategories,
+  getAllProducts,
+} from "../store/reducers-actions/products/productAction";
+import { getAllOrders } from "../store/reducers-actions/orders/ordersAction";
+import {
+  clearErrors,
+  getAllUsers,
+} from "../store/reducers-actions/users/usersAction";
 
 const Dashboard = () => {
   const dispatch = useDispatch();
@@ -152,7 +155,7 @@ const Dashboard = () => {
           <div className="flex flex-col bg-indigo-500 text-white gap-2 rounded-xl shadow  p-6">
             <h4 className="text-gray-100 font-medium">Total Sales Amount</h4>
             <h2 className="text-2xl font-bold">
-              ₹ {totalAmount?.toLocaleString()}
+              $ {totalAmount?.toLocaleString()}
             </h2>
           </div>
           <div className="flex flex-col bg-yellow-500 text-white gap-2 rounded-xl shadow p-6">
