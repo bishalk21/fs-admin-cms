@@ -4,6 +4,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useSelector } from "react-redux";
 import { lazy, useEffect } from "react";
+const Product = lazy(() => import("./pages/Product"));
 const Dashboard = lazy(() => import("./pages/Dashboard"));
 const Sidebar = lazy(() => import("./components/sidebar/Sidebar"));
 const Users = lazy(() => import("./pages/Users"));
@@ -44,6 +45,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Dashboard />} />
         <Route path="/users" element={<Users />} />
+        <Route path="/products" element={<Product />} />
         <Route path="/auth/signin" element={userInfo == null && <SignIn />} />
         <Route path="/auth/signup" element={userInfo == null && <SignUp />} />
         <Route
