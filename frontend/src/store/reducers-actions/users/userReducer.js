@@ -13,109 +13,76 @@ import {
   CLEAR_ERRORS,
 } from "../../constants";
 
-// Initial states
-const initialLoginState = {
-  loading: false,
-  userInfo: null,
-  isAuthenticated: false,
-  error: null,
+export const userLoginReducer = (state = {}, action) => {
+  switch (action.type) {
+    case USER_LOGIN_REQUEST:
+      return { loading: true, error: null };
+    case USER_LOGIN_SUCCESS:
+      return {
+        loading: false,
+        userInfo: action.payload,
+        isAuthenticated: true,
+        error: null,
+      };
+    case USER_LOGIN_FAIL:
+      return { loading: false, error: action.payload };
+    case USER_LOGOUT:
+      return { loading: false, user: null };
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
+    default:
+      return state;
+  }
 };
 
-const initialRegisterState = {
-  loading: false,
-  userInfo: null,
-  error: null,
+export const userRegisterReducer = (state = {}, action) => {
+  switch (action.type) {
+    case USER_REGISTER_REQUEST:
+      return { loading: true };
+    case USER_REGISTER_SUCCESS:
+      return { loading: false, userInfo: action.payload };
+    case USER_REGISTER_FAIL:
+      return { loading: false, error: action.payload };
+    case USER_LOGOUT:
+      return {};
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
+    default:
+      return state;
+  }
 };
 
-const initialAllUsersState = {
-  loading: false,
-  users: [],
-  error: null,
+export const allUsersReducer = (state = { users: [] }, action) => {
+  switch (action.type) {
+    case ALL_USERS_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case ALL_USERS_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        users: action.payload,
+      };
+    case ALL_USERS_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
+    default:
+      return state;
+  }
 };
-
-// Login Slice
-const loginSlice = createSlice({
-  name: "login",
-  initialState: initialLoginState,
-  reducers: {
-    [USER_LOGIN_REQUEST]: (state) => {
-      state.loading = true;
-      state.error = null;
-    },
-    [USER_LOGIN_SUCCESS]: (state, action) => {
-      state.loading = false;
-      state.userInfo = action.payload;
-      state.isAuthenticated = true;
-      state.error = null;
-    },
-    [USER_LOGIN_FAIL]: (state, action) => {
-      state.loading = false;
-      state.error = action.payload;
-    },
-    [USER_LOGOUT]: (state) => {
-      state.loading = false;
-      state.userInfo = null;
-      state.isAuthenticated = false;
-    },
-    [CLEAR_ERRORS]: (state) => {
-      state.error = null;
-    },
-  },
-});
-
-// Register Slice
-const registerSlice = createSlice({
-  name: "register",
-  initialState: initialRegisterState,
-  reducers: {
-    [USER_REGISTER_REQUEST]: (state) => {
-      state.loading = true;
-    },
-    [USER_REGISTER_SUCCESS]: (state, action) => {
-      state.loading = false;
-      state.userInfo = action.payload;
-    },
-    [USER_REGISTER_FAIL]: (state, action) => {
-      state.loading = false;
-      state.error = action.payload;
-    },
-    [USER_LOGOUT]: (state) => {
-      state.loading = false;
-      state.userInfo = null;
-    },
-    [CLEAR_ERRORS]: (state) => {
-      state.error = null;
-    },
-  },
-});
-
-// AllUsers Slice
-const allUsersSlice = createSlice({
-  name: "allUsers",
-  initialState: initialAllUsersState,
-  reducers: {
-    [ALL_USERS_REQUEST]: (state) => {
-      state.loading = true;
-    },
-    [ALL_USERS_SUCCESS]: (state, action) => {
-      state.loading = false;
-      state.users = action.payload;
-    },
-    [ALL_USERS_FAIL]: (state, action) => {
-      state.loading = false;
-      state.error = action.payload;
-    },
-    [CLEAR_ERRORS]: (state) => {
-      state.error = null;
-    },
-  },
-});
-
-// Exporting actions and reducers
-export const loginActions = loginSlice.actions;
-export const registerActions = registerSlice.actions;
-export const allUsersActions = allUsersSlice.actions;
-
-export const userLoginReducer = loginSlice.reducer;
-export const userRegisterReducer = registerSlice.reducer;
-export const allUsersReducer = allUsersSlice.reducer;

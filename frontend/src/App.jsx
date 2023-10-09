@@ -4,9 +4,14 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useSelector } from "react-redux";
 import { lazy, useEffect } from "react";
+import NotFound from "./pages/NotFound";
+import Order from "./pages/Order";
+import Brand from "./pages/Brand";
+import Categories from "./pages/Categories";
 const Product = lazy(() => import("./pages/Product"));
 const Dashboard = lazy(() => import("./pages/Dashboard"));
-const Sidebar = lazy(() => import("./components/sidebar/Sidebar"));
+import Sidebar from "./components/sidebar/Sidebar";
+import ProtectedRoute from "./routes/ProtectedRoute";
 const Users = lazy(() => import("./pages/Users"));
 const SignupOtpVerification = lazy(() =>
   import("./auth/SignupOtpVerification")
@@ -40,17 +45,70 @@ function App() {
         Currently in progress
       </div>
 
-      {userInfo === null && <Sidebar />}
+      {userInfo !== null && <Sidebar />}
 
       <Routes>
-        <Route path="/" element={<Dashboard />} />
-        <Route path="/users" element={<Users />} />
-        <Route path="/products" element={<Product />} />
+        <Route
+          path="/"
+          element={
+            <ProtectedRoute>
+              <Dashboard />{" "}
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/users"
+          element={
+            <ProtectedRoute>
+              <Users />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/products"
+          element={
+            <ProtectedRoute>
+              <Product />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/orders"
+          element={
+            <ProtectedRoute>
+              <Order />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/brands"
+          element={
+            <ProtectedRoute>
+              <Brand />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/categories"
+          element={
+            <ProtectedRoute>
+              <Categories />
+            </ProtectedRoute>
+          }
+        />
         <Route path="/auth/signin" element={userInfo == null && <SignIn />} />
         <Route path="/auth/signup" element={userInfo == null && <SignUp />} />
         <Route
           path="/auth/signup/otp-verification/:email"
           element={userInfo == null && <SignupOtpVerification />}
+        />
+        <Route
+          path="*"
+          element={
+            <ProtectedRoute>
+              <NotFound />
+            </ProtectedRoute>
+          }
         />
       </Routes>
 

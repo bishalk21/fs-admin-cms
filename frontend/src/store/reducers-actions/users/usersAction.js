@@ -1,3 +1,4 @@
+import fewaStoreApi from "../../../api/fewaStoreApi";
 import {
   USER_LOGIN_FAIL,
   USER_LOGIN_REQUEST,
@@ -12,17 +13,28 @@ import {
   CLEAR_ERRORS,
 } from "../../constants";
 
-import {
-  loginUserApi,
-  registerUserApi,
-  fetchAllUsersApi,
-} from "../../../helpers/axiosHelper";
-
 export const login = (email, password) => async (dispatch) => {
   try {
-    dispatch({ type: USER_LOGIN_REQUEST });
-    const { data } = await loginUserApi(email, password);
-    dispatch({ type: USER_LOGIN_SUCCESS, payload: data.admin });
+    dispatch({
+      type: USER_LOGIN_REQUEST,
+    });
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    const { data } = await fewaStoreApi.post(
+      "/auth/administrator/login",
+      { email, password },
+      config
+    );
+
+    dispatch({
+      type: USER_LOGIN_SUCCESS,
+      payload: data.admin,
+    });
     sessionStorage.setItem("userInfo", JSON.stringify(data.admin));
   } catch (error) {
     dispatch({
@@ -35,12 +47,41 @@ export const login = (email, password) => async (dispatch) => {
   }
 };
 
+export const logout = () => (dispatch) => {
+  sessionStorage.clear();
+  localStorage.clear();
+  dispatch({ type: USER_LOGOUT });
+  document.location.href = "/";
+};
+
 export const register = (name, email, password) => async (dispatch) => {
   try {
-    dispatch({ type: USER_REGISTER_REQUEST });
-    const { data } = await registerUserApi(name, email, password);
-    dispatch({ type: USER_REGISTER_SUCCESS, payload: data.admin });
-    dispatch({ type: USER_LOGIN_SUCCESS, payload: data });
+    dispatch({
+      type: USER_REGISTER_REQUEST,
+    });
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    const { data } = await fewaStoreApi.post(
+      "/auth/user/signup",
+      { name, email, password },
+      config
+    );
+
+    dispatch({
+      type: USER_REGISTER_SUCCESS,
+      payload: data.admin,
+    });
+
+    dispatch({
+      type: USER_LOGIN_SUCCESS,
+      payload: data,
+    });
+
     sessionStorage.setItem("userInfo", JSON.stringify(data.admin));
   } catch (error) {
     dispatch({
@@ -59,26 +100,24 @@ export const getAllUsers = () => async (dispatch, getState) => {
     const {
       userLogin: { userInfo },
     } = getState();
-    const { data } = await fetchAllUsersApi(userInfo.token);
-    dispatch({ type: ALL_USERS_SUCCESS, payload: data.users });
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+    const { data } = await fewaStoreApi.get("/admin/userlist", config);
+    dispatch({
+      type: ALL_USERS_SUCCESS,
+      payload: data.users,
+    });
   } catch (error) {
     dispatch({
       type: ALL_USERS_FAIL,
-      payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
+      payload: error.response.data.message,
     });
   }
 };
-
-export const logout = () => (dispatch) => {
-  sessionStorage.clear();
-  localStorage.clear();
-  dispatch({ type: USER_LOGOUT });
-  document.location.href = "/";
-};
-
-export const clearErrors = () => (dispatch) => {
+export const clearErrors = () => async (dispatch) => {
   dispatch({ type: CLEAR_ERRORS });
 };

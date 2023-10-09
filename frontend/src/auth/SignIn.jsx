@@ -19,7 +19,9 @@ const SignIn = () => {
 
   const { error, userInfo } = useSelector((state) => state.userLogin);
 
-  let redirectPath = location.state?.from?.pathname || "/";
+  const redirectPath =
+    (location.state && location.state.from && location.state.from.pathname) ||
+    "/";
 
   useEffect(() => {
     if (error) {
@@ -62,7 +64,7 @@ const SignIn = () => {
                   onChange={(e) => setEmail(e.target.value)}
                   required
                   className="appearance-none input relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                  placeholder="Email address"
+                  placeholder="try: carkeybeekey@gmail.com"
                 />
               </div>
               <div>
@@ -78,7 +80,7 @@ const SignIn = () => {
                   required
                   autoComplete="off"
                   className="appearance-none input relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                  placeholder="Password"
+                  placeholder="Password: Asdfgh12$"
                 />
               </div>
               <div className="terms flex items-center justify-between">

@@ -82,7 +82,7 @@ const ListProduct = ({ data }) => {
                 >
                   <td className="px-6 py-4 whitespace-nowrap text-base font-medium">
                     <img
-                      src={`https://api.theshubham.dev/${person.imageUrl}`}
+                      src={`https://api.fewastore.com/${person.imageUrl}`}
                       alt=""
                       className="h-10"
                     />

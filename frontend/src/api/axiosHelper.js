@@ -1,4 +1,4 @@
-import fewaStoreApi from "../api/fewaStoreApi";
+import fewaStoreApi from "./fewaStoreApi";
 
 export const loginUserApi = async (email, password) => {
   const config = {
